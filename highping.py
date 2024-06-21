@@ -27,7 +27,7 @@ set qlx_highpingSamples "10"
 import minqlx
 import time
 
-VERSION = "1.1"
+VERSION = "1.2"
 
 
 class highping(minqlx.Plugin):
@@ -65,11 +65,11 @@ class highping(minqlx.Plugin):
         max_ping = self.get_cvar("qlx_highpingMax", int)
         samples = self.get_cvar("qlx_highpingSamples", int)
         for player in teams:
-            pings[player] = 0
+            pings[player.steam_id] = 0
             for x in range(samples):
-                pings[player] += player.ping
+                pings[player.steam_id] += player.ping
                 time.sleep(0.2)
-            pings[player] = pings[player] / samples
+            pings[player.steam_id] = pings[player.steam_id] / samples
 
         for player, ping in pings:
             if ping >= max_ping:
